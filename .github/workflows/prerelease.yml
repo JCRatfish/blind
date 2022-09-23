@@ -1,0 +1,20 @@
+name: Prerelease
+
+env:
+  GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Create Package
+        uses: BigWigsMods/packager@v2
