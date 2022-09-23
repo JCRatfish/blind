@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/.. \FrameXML\UI.xsd">
+  <Include file="InterfaceOptions/Init.lua"/>
+  <Include file="InterfaceOptions/RenderEvents.lua"/>
+  <Include file="InterfaceOptions/MainTabGroup/Init.lua"/>
+  <Include file="InterfaceOptions/MainTabGroup/Tabs/Accountability.lua"/>
+  <Include file="InterfaceOptions/MainTabGroup/Tabs/Debug.lua"/>
+  <!-- <Include file="InterfaceOptions/MainTabGroup/Tabs/Account.lua"/> -->
+</Ui>
