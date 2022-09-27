@@ -68,7 +68,7 @@ function Communication:OnEnable()
             local groupRosterMember = Ace3.Modules.Rosters.GroupRoster.Members[sender]
             if groupRosterMember then
               groupRosterMember.Addons = Communication.Channels.Rosters.Payloads[sender]
-              if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Group" then
+              if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Group" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Group.ScrollFrame.SimpleGroup.ELM:IsVisible() then
                 Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Group.ScrollFrame.SimpleGroup.functions.Render("Group")
               end
             end
@@ -76,7 +76,7 @@ function Communication:OnEnable()
             local guildRosterMember = Ace3.Modules.Rosters.GuildRoster.Members[sender]
             if guildRosterMember then
               guildRosterMember.Addons = Communication.Channels.Rosters.Payloads[sender]
-              if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" then
+              if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Guild.ScrollFrame.SimpleGroup.ELM:IsVisible() then
                 Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Guild.ScrollFrame.SimpleGroup.functions.Render("Guild")
               end
             end

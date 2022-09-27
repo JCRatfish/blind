@@ -82,7 +82,7 @@ function Rosters.GROUP_ROSTER_UPDATE(event, isPartyMemberEvent)
       -- Ace3.Modules.Helpers.PrintDebugDump({[event] = EventTable.GroupRoster})
     end
     -- GUI updates for every event due to leadership changes
-    if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Group" then
+    if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Group" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM:IsVisible() then
       Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Group.ScrollFrame.SimpleGroup.functions.Render("Group")
       Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.Tabs.Group.ScrollFrame.ELM:DoLayout()
     end
@@ -149,13 +149,13 @@ function Rosters.GUILD_ROSTER_UPDATE()
       -- the previous event occured less than or equal to 10 and more than 0 seconds ago; queue a request for the guild roster and stop execution
       local secondsBeforeNextPossibleGuildRosterEvent = 11 - Rosters.GuildRoster.Events.Current.TimeDelta
       local currentTime = Rosters.GuildRoster.Events.Current.Time -- local copy, otherwise countdown gets messed up
-      if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" then
+      if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM:IsVisible() then
         Rosters.GuildRoster.AccountabilityTab.ScrollFrame.SimpleGroup.SyncLabel.ELM:SetText(EventTable.UpdateText .. secondsBeforeNextPossibleGuildRosterEvent) -- GUI update
       end
       -- start ticker for SyncLabel
       C_Timer.NewTicker(1, function()
         local remainingTime = secondsBeforeNextPossibleGuildRosterEvent - (math.floor(GetTime()) - currentTime)
-        if remainingTime > 0 and IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" then
+        if remainingTime > 0 and IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM:IsVisible() then
           Rosters.GuildRoster.AccountabilityTab.ScrollFrame.SimpleGroup.SyncLabel.ELM:SetText(EventTable.UpdateText .. remainingTime) -- GUI update
         end
       end, secondsBeforeNextPossibleGuildRosterEvent)
@@ -165,7 +165,7 @@ function Rosters.GUILD_ROSTER_UPDATE()
         Rosters.GuildRoster.Events.Current.TimeDelta = EventTable.CurrentTimeInSeconds - Rosters.GuildRoster.Events.Current.Time
         Rosters.GuildRoster.Events.Current.Time = EventTable.CurrentTimeInSeconds
         GuildRoster()
-        if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" then
+        if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM:IsVisible() then
           Rosters.GuildRoster.AccountabilityTab.ScrollFrame.SimpleGroup.SyncLabel.ELM:SetText("Guild Roster is up to date!") -- GUI update
         end
       end)
@@ -204,7 +204,7 @@ function Rosters.GUILD_ROSTER_UPDATE()
     Rosters.GuildRoster.Events.Current.IsUpdated = true
     -- Ace3.Modules.Helpers.PrintDebugDump({GUILD_ROSTER_UPDATE = { Events = Rosters.GuildRoster.Events, MemberCounts = Rosters.GuildRoster.MemberCounts }})
     -- GUI updates
-    if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" then
+    if IsInGuild() and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM.localstatus.selected == "Guild" and Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.TabGroup.ELM:IsVisible() then
       Rosters.GuildRoster.AccountabilityTab.ScrollFrame.SimpleGroup.SyncLabel.ELM:SetText("Guild Roster is up to date!")
       Rosters.GuildRoster.AccountabilityTab.ScrollFrame.SimpleGroup.functions.Render("Guild")
       Rosters.GuildRoster.AccountabilityTab.ScrollFrame.ELM:DoLayout()
