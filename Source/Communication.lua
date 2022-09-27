@@ -121,7 +121,6 @@ function Communication:OnEnable()
         end,
         --- Purge payload data from other clients, only fires on /reload
         PLAYER_LEAVING_WORLD = function(event)
-          -- Ace3.Modules.Helpers.PrintDebug(event)
           Communication.Channels.Rosters.SendCommMessage("purge", true, true)
         end,
         --- Send a request after joining a group
@@ -138,18 +137,12 @@ function Communication:OnEnable()
         --- Reset GuildRoster and update GUI after joining/leaving guild
         PLAYER_GUILD_UPDATE = function(event)
           -- Ace3.Modules.Helpers.PrintDebug(event)
-          if IsInGuild() and (not Ace3.Modules.Rosters.GuildRoster or not next(Ace3.Modules.Rosters.GuildRoster.MemberCounts)) then
+          if IsInGuild() and (Ace3.Modules.Rosters.GuildRoster == nil) then
             Ace3.Modules.Rosters:SetupGuildRoster()
             Communication.Channels.Rosters.SendCommMessage("request", false, true)
             GuildRoster()
-            if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.ELM.localstatus.selected == "Accountability" then
-              Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.functions.Render()
-            end
-          elseif not IsInGuild() and Ace3.Modules.Rosters.GuildRoster then
+          elseif not IsInGuild() and (Ace3.Modules.Rosters.GuildRoster ~= nil) then
             Ace3.Modules.Rosters:ShutdownGuildRoster()
-            if Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.ELM.localstatus.selected == "Accountability" then
-              Ace3GUIElements.BlizOptionsGroup.SimpleGroup.TabGroup.Tabs.Accountability.functions.Render()
-            end
           end
         end,
       }

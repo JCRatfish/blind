@@ -105,9 +105,7 @@ function Rosters:SetupGuildRoster()
 end
 
 function Rosters:ShutdownGuildRoster()
-  self.GuildRoster.Members = {}
-  self.GuildRoster.MemberCounts = {}
-  self.GuildRoster.MemberNamesSorted = {}
+  self.GuildRoster = nil
   self:UnregisterEvent("GUILD_ROSTER_UPDATE")
 end
 
