@@ -87,9 +87,7 @@ function Communication:OnEnable()
         --- Send a request to guild on login, or group and guild after /reload
         PLAYER_ENTERING_WORLD = function(event, isInitialLogin, isReloadingUi)
           -- Ace3.Modules.Helpers.PrintDebugDump({ [event] = { isInitialLogin = isInitialLogin, isReloadingUi = isReloadingUi } })
-          if isInitialLogin then
-            -- Communication.Channels.Rosters.SendCommMessage("request", false, true)
-          elseif isReloadingUi then
+          if isReloadingUi then
             if IsInRaid() or IsInGroup() then
               Ace3.Modules.Rosters:SetupGroupRoster()
               Ace3.Modules.Rosters.GROUP_ROSTER_UPDATE("GROUP_ROSTER_UPDATE")
@@ -98,29 +96,26 @@ function Communication:OnEnable()
               Ace3.Modules.Rosters:SetupGuildRoster()
             end
             Communication.Channels.Rosters.SendCommMessage("request", true, true)
-          else
-            -- when entering an instance notify the player if they have prohibited addons enabled
-            if IsInRaid() or IsInGroup() or IsInGuild() then
-              local isInInstance, instanceType = IsInInstance()
-              if isInInstance and (instanceType == "party" or instanceType == "raid") then
-                local enabledProhibitedAddons = {}
-                for i,addon in ipairs(AddonTable.ProhibitedAddons) do
-                  if (GetAddOnEnableState(AddonTable.Player.Name, addon.name) == 2) then
-                    table.insert(enabledProhibitedAddons, addon.name)
-                  end
-                end
-                if next(enabledProhibitedAddons) then
-                  local alert = WrapTextInColorCode("[ALERT]", "FFFF0000")
-                  alert = alert .." Prohibited AddOn(s) are enabled! Please disable the following: "
-                  for i,addon in ipairs(enabledProhibitedAddons) do
-                    if i > 1 then
-                      alert = alert ..", "
-                    end
-                    alert = alert .. addon
-                  end
-                  Ace3.Addon:Print(alert)
-                end
+          end
+          -- when entering an instance notify the player if they have prohibited addons enabled
+          local isInInstance, instanceType = IsInInstance()
+          if isInInstance and (instanceType == "party" or instanceType == "raid") then
+            local enabledProhibitedAddons = {}
+            for i,addon in ipairs(AddonTable.ProhibitedAddons) do
+              if (GetAddOnEnableState(AddonTable.Player.Name, addon.name) == 2) then
+                table.insert(enabledProhibitedAddons, addon.name)
               end
+            end
+            if next(enabledProhibitedAddons) then
+              local alert = WrapTextInColorCode("[ALERT]", "FFFF0000")
+              alert = alert .." Prohibited AddOn(s) are enabled! Please disable the following: "
+              for i,addon in ipairs(enabledProhibitedAddons) do
+                if i > 1 then
+                  alert = alert ..", "
+                end
+                alert = alert .. addon
+              end
+              Ace3.Addon:Print(alert)
             end
           end
         end,
